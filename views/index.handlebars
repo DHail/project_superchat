@@ -1,7 +1,14 @@
-<div class="">
-  <form class="" action="/newRoom" method="post">
-    <input type="text" name="name" value="">
-    <input type="submit"/>
+<div id="newRoom">
+  <form class="" method="post">
+    <input type="text" name="name" placeholder="Room name">
+    <input type="submit">
+  </form>
+</div>
+
+<div id="newPost">
+  <form class="" method="post">
+    <input type="text" name="post" placeholder="Post message...">
+    <input type="submit">
   </form>
 </div>
 
@@ -18,29 +25,43 @@
 
 
 <div id="currentRoom">
-  {{#each messages as |message|}}
-    <div>
-      {{message.author}}
-    </div>
-    <div class="">
-      {{message.text}}
-    </div>
-  {{/each}}
+
 </div>
 
 <script>
   var socket = io.connect('http://localhost:3000')
 
-  $('.room').click( (event) => {
-  	var roomName = $(event.target).attr("roomName")
-  	socket.emit('openRoom', roomName)
-  	console.log(roomName);
-  });
-
-  socket.on('displayRoom', function(messages) {
-    $("#currentRoom").remove()
+  $(document).ready( () => {
+    $('#newPost').hide();
   })
 
+  $('.room').click( (event) => {
+  	var roomName = $(event.target).attr("roomName");
+  	socket.emit('openRoom', roomName);
+  });
+
+  $('#newRoom').on('click', 'input[type="submit"]', (event) => {
+    event.preventDefault();
+    let roomName = $('input[name=name]').val();
+    let userName = document.cookie.slice(10);
+    socket.emit('newRoom', {roomName, userName});
+  })
+
+  socket.on('displayRoom', function(messages) {
+    $("#currentRoom").children().remove();
+    messages.forEach(message => {
+      let outerDiv = $('<div>');
+      outerDiv.append($('<div>').text(message.author));
+      outerDiv.append($('<div>').text(message.text));
+      $('#currentRoom').append(outerDiv);
+    });
+    $('#newRoom').hide();
+    $('#newPost').show();
+  });
+
+  socket.on('newRoom', roomName => {
+
+  });
 
 
   // socket.on('new count', function(count) {
@@ -55,5 +76,3 @@
   //   socket.emit('decrement')
   // })
 </script>
-
-
