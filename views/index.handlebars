@@ -1,1 +1,17 @@
+<div class="">
+  <form class="" action="/newRoom" method="post">
+    <input type="text" name="name" value="">
+    <input type="submit"/>
+  </form>
+</div>
 
+<div class="">
+  {{#each rooms as |room|}}
+    <div>
+      {{room.name}}
+    </div>
+    <div class="">
+      {{room.authorCount}} members
+    </div>
+  {{/each}}
+</div>
