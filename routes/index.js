@@ -6,15 +6,17 @@ const index = (io) => {
 
   router.get('/', (req, res) => {
 
-    chat.getRoomMessages('Axe Talk 2');
+    
 
   	if(!req.cookies.username) {
   		res.redirect("/login");
   	} else {
-	  	console.log(req.cookies);
-	  	chat.createMessage("Axe Talk 2", "dave", "This is a message", Date.now());
-	    chat.allRoomsAuthors().then(rooms => {
-	      res.render('index', { rooms });
+  		var rooms;
+	  	chat.createMessage("Axe Talk 2", "Jack", "Blah blah blah", Date.now());
+	    chat.allRoomsAuthors().then(allRooms => {
+	    	rooms = allRooms;
+	      
+	      
 	    });
 	  }
   });
@@ -42,6 +44,18 @@ const index = (io) => {
    let username = req.body.username;
     res.cookie('username', username);
     res.redirect('/');
+  });
+
+  io.on('connection', client => {
+
+  	client.on("openRoom", (roomName) => {
+
+  		chat.getRoomMessages(roomName).then(messages => {
+	      	client.emit("displayRoom", messages)
+	      });
+
+	  });
+
   });
 
 

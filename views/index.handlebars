@@ -8,10 +8,52 @@
 <div class="">
   {{#each rooms as |room|}}
     <div>
-      {{room.roomName}}
+      <span class="room" roomName="{{room.roomName}}">{{room.roomName}}</span>
     </div>
     <div class="">
       {{room.authorCount}} members
     </div>
   {{/each}}
 </div>
+
+
+<div id="currentRoom">
+  {{#each messages as |message|}}
+    <div>
+      {{message.author}}
+    </div>
+    <div class="">
+      {{message.text}}
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  var socket = io.connect('http://localhost:3000')
+
+  $('.room').click( (event) => {
+  	var roomName = $(event.target).attr("roomName")
+  	socket.emit('openRoom', roomName)
+  	console.log(roomName);
+  });
+
+  socket.on('displayRoom', function(messages) {
+    $("#currentRoom").remove()
+  })
+
+
+
+  // socket.on('new count', function(count) {
+  //   $("#count").html(count)
+  // })
+
+  // $("#increment").click(function() {
+  //   socket.emit('increment')
+  // })
+
+  // $("#decrement").click(function() {
+  //   socket.emit('decrement')
+  // })
+</script>
+
+
