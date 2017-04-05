@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const expressHbs = require("express-handlebars");
 const io = require("socket.io")(server);
 const bodyParser = require("body-parser");
+const cp = require('cookie-parser');
 
 app.engine(
   "handlebars",
@@ -17,6 +18,7 @@ app.set("view engine", "handlebars");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(`${__dirname}/public`));
+app.use(cp())
 
 // routes
 const index = require('./routes/index')(io);
