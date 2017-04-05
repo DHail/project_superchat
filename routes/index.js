@@ -5,8 +5,8 @@ let chat = require('../lib/chatRoom')
 const index = (io) => {
 
   router.get('/', (req, res) => {
-  	chat.createMessage("Axe Talk 2", "jerry", "This is a message", Date.now());
-    chat.roomsAuthors().then(rooms => {
+  	chat.createMessage("Axe Talk 2", "dave", "This is a message", Date.now());
+    chat.allRoomsAuthors().then(rooms => {
       console.log(rooms);
       res.render('index', { rooms });
     });
