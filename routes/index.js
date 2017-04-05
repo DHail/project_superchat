@@ -60,6 +60,20 @@ const index = io => {
         client.emit("displayRoom", messages);
       });
     });
+
+    client.on('newMessage', data => {
+      let roomName = data.roomName;
+      let author = data.userName;
+      let message = data.message;
+      chat.createMessage(
+        roomName,
+        author,
+        message,
+        Date.now()
+      );
+        io.emit("brandNewMessage", {author, message});
+    });
+
   });
 
   return router;
