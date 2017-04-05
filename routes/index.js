@@ -1,11 +1,13 @@
 const express = require('express');
 let router = express.Router();
-let chat = require('../lib/chatRoom')
+let chat = require('../lib/chatRoom');
 
 const index = (io) => {
 
   router.get('/', (req, res) => {
-  	
+
+    chat.getRoomMessages('Axe Talk 2');
+
   	if(!req.cookies.username) {
   		res.redirect("/login");
   	} else {
@@ -14,14 +16,14 @@ const index = (io) => {
 	    chat.allRoomsAuthors().then(rooms => {
 	      res.render('index', { rooms });
 	    });
-	}
+	  }
   });
 
   router.get('/login', (req, res) => {
   	if(req.cookies.username) {
   		res.redirect('/');
   	} else {
-  		res.render('login');  	
+  		res.render('login');
   	}
   });
 
