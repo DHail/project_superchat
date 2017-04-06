@@ -2,11 +2,11 @@
   <button type="button" class="navbar-toggler navbar-toggler-right collapsed" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="/">SUPERCHAT</a>
+  <a class="navbar-brand" href="/">SUPERCHAT!</a>
   <div id="navbarSupportedContent" class="navbar-collapse collapse" aria-expanded="false">
     <form class="form-inline" method="post" action="/logout">
       <span class="nav-user">{{username}}</span>
-      <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>
+      <button class="btn btn-primary" type="submit">Logout</button>
     </form>
   </div>
 </nav>
@@ -23,20 +23,23 @@
   </ul>
 </nav>
 
+<div id="new-room" class="col">
+  <h4>Create a new room</h4>
+  <form id="new-room-form">
+    <input type="text" name="name" placeholder="Room name">
+  </form>
+</div>
+
 <div id="page-content-wrapper">
-  <div id="new-room" class="col">
-    <form id="new-room-form">
-      <input type="text" name="name" placeholder="Room name">
-    </form>
-  </div>
-
   <div id="current-room" class="col">
+    <div id="current-room-messages">
+    </div>
+    <div id="new-message">
+      <form id="new-message-form">
+        <input type="text" name="text" placeholder="Post message...">
+      </form>
+    </div>
   </div>
 
-  <div id="new-message">
-    <form id="new-message-form">
-      <input type="text" name="text" placeholder="Post message...">
-    </form>
-  </div>
 
 </div>
