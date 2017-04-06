@@ -4,8 +4,9 @@
   </button>
   <a class="navbar-brand" href="/">SUPERCHAT</a>
   <div id="navbarSupportedContent" class="navbar-collapse collapse" aria-expanded="false">
-    <form class="form-inline">
-      <span class="form-control mr-sm-2">{{username}}</span>
+    <form class="form-inline" method="post" action="/logout">
+      <span class="nav-user">{{username}}</span>
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>
     </form>
   </div>
 </nav>

@@ -22,6 +22,13 @@ const index = io => {
     }
   });
 
+  router.post("/logout", (req, res) => {
+    if (req.cookies.username) {
+      res.clearCookie('username');
+    } 
+    res.redirect("/");
+  });
+
   router.get('/seed', (req, res) => {
     chat.seed().then( () => {
       res.redirect('/');

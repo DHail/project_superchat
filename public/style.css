@@ -2,6 +2,25 @@ html, body {
   height: 100%;
 }
 
+#login-wrapper {
+  position: relative;
+  height: 100%;
+  background-color: #292b2c;
+  color: #fff;
+}
+
+#login-form {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+#login-form input {
+  width: 400px;
+  margin: 25px auto 15px;
+
+}
+
 #sidebar-wrapper {
   position: fixed;
   z-index: 1000;
@@ -20,6 +39,12 @@ html, body {
   position: fixed;
   top: 8px;
   right: 15px;
+}
+
+.nav-user {
+  color: #fff;
+  margin-right: 20px;
+  font-size: 18px;
 }
 
 .members {
@@ -94,11 +119,12 @@ form input[type="submit"] {
   display: none;
   position: fixed;
   bottom: 30px;
-  width: inherit;
+  width: calc(100% - 200px);
 }
 
-#new-message form {
-  padding-right: 15px;
+#new-message-form input {
+  margin-right: 15px;
+
 }
 
 .col {
