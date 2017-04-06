@@ -1,4 +1,4 @@
-<script>
+
   const socket = io.connect('http://localhost:3000');
 
   $(document).ready( () => {
@@ -7,7 +7,8 @@
       $('#new-room-form').show();
     })
 
-    $('#sidebar-wrapper').on('click', '.room', event => {
+    $('#room-list').on('click', '.room', event => {
+    	console.log($(event.target));
     	const roomName = $(event.target).attr("room-name");
     	$('#current-room').attr("room-name", roomName);
     	socket.emit('click room', roomName);
@@ -20,8 +21,18 @@
         const userName = $.cookie("username");
         socket.emit('submit new room', roomName, userName);
         $('input[name=name]').val("");
+        var $newListItem = $('<li>').addClass('room').attr('room-name', roomName);
+	    var $navRoomName = $('<div>').addClass('room-name').attr('room-name', roomName);
+	    var $navMember = $('<div>').addClass('members').attr('room-name',roomName);
+	    $navRoomName.text(roomName);
+	    $navMember.text('1 member');
+	    $newListItem.append($navRoomName).append($navMember);
+        $('#room-list').prepend($newListItem);
       }
     });
+
+
+
 
     $('#new-message-form input').keydown(event => {
       if (event.keyCode == 13) {
@@ -54,4 +65,4 @@
     outerDiv.append($('<div>').addClass('msg-text').text(message));
     $('#current-room').append(outerDiv);
   }
-</script>
+

@@ -8,10 +8,8 @@
 </nav>
 
 <nav id="sidebar-wrapper">
-  <ul id="active" class="sidebar-nav">
-    <li id="create-room">
-      <div>+ Create Room</div>
-    </li>
+  <div id="create-room">+ Create Room</div>
+  <ul id="room-list" class="sidebar-nav">
     {{#each rooms as |room|}}
       <li class="room" room-name="{{room.roomName}}">
         <div class="room-name" room-name="{{room.roomName}}">{{room.roomName}}</div>
