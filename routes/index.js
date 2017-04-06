@@ -1,13 +1,14 @@
 const express = require("express");
 let router = express.Router();
-let chat = require("../lib/chatRoom");
+let chat = require("../lib/chat");
 
 const index = io => {
   router.get("/", (req, res) => {
     if (!req.cookies.username) {
       res.redirect("/login");
     } else {
-      chat.allRoomsAuthors().then(rooms => {
+      chat.allRoomsAndAuthors().then(rooms => {
+        console.log(rooms);
         res.render("index", { rooms });
       });
     }
@@ -21,9 +22,15 @@ const index = io => {
     }
   });
 
+  router.get('/seed', (req, res) => {
+    chat.seed().then( () => {
+      res.redirect('/');
+    })
+  });
+
   router.post("/newRoom", (req, res) => {
     const roomName = req.body.name;
-    const author = "jon";
+    const author = req.cookies.username;
     chat.createMessage(
       roomName,
       author,
@@ -41,37 +48,32 @@ const index = io => {
 
   io.on("connection", client => {
 
-    client.on("openRoom", roomName => {
-      chat.getRoomMessages(roomName).then(messages => {
-        client.emit("displayRoom", messages);
+    client.on("click room", roomName => {
+      chat.messagesForRoom(roomName).then(messages => {
+        client.emit("open room", messages);
       });
     });
 
-    client.on('newRoom', data => {
-      let roomName = data.roomName;
-      let author = data.userName;
+    client.on('submit new room', (roomName, author) => {
       chat.createMessage(
         roomName,
         author,
         `This room was created by ${author}.`,
         Date.now()
       );
-      chat.getRoomMessages(roomName).then(messages => {
-        client.emit("displayRoom", messages);
+      chat.messagesForRoom(roomName).then(messages => {
+        client.emit("open room", messages);
       });
     });
 
-    client.on('newMessage', data => {
-      let roomName = data.roomName;
-      let author = data.userName;
-      let message = data.message;
+    client.on('new message', (roomName, author, text) => {
       chat.createMessage(
         roomName,
         author,
-        message,
+        text,
         Date.now()
       );
-        io.emit("brandNewMessage", {author, message});
+      io.emit("created message", roomName, author, text);
     });
 
   });

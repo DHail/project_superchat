@@ -1,92 +1,40 @@
-<div id="newRoom">
-  <form class="" method="post">
-    <input type="text" name="name" placeholder="Room name">
-    <input type="submit">
-  </form>
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse" role="navigation">
+  <button type="button" class="navbar-toggler navbar-toggler-right collapsed" data-toggle="collapse" data-target="navbar-collapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">SUPERCHAT</a>
+  <div class="navbar-collapse collapse" aria-expanded="false">
+  </div>
+</nav>
+
+<nav id="sidebar-wrapper">
+  <ul id="active" class="sidebar-nav">
+    <li id="create-room">
+      <div>+ Create Room</div>
+    </li>
+    {{#each rooms as |room|}}
+      <li class="room" room-name="{{room.roomName}}">
+        <div class="room-name" room-name="{{room.roomName}}">{{room.roomName}}</div>
+        <div class="members" room-name="{{room.roomName}}">{{room.authorCount}} members</div>
+      </li>
+    {{/each}}
+  </ul>
+</nav>
+
+<div id="page-content-wrapper">
+  <div id="new-room" class="col">
+    <form id="new-room-form">
+      <input type="text" name="name" placeholder="Room name">
+    </form>
+  </div>
+
+  <div id="current-room" class="col">
+  </div>
+
+  <div id="new-message">
+    <form id="new-message-form">
+      <input type="text" name="text" placeholder="Post message...">
+    </form>
+  </div>
+
 </div>
-
-<div id="newMessage">
-  <form class="" method="post">
-    <input type="text" name="post" placeholder="Post message...">
-    <input type="submit">
-  </form>
-</div>
-
-<div class="">
-  {{#each rooms as |room|}}
-    <div>
-      <span class="room" roomName="{{room.roomName}}">{{room.roomName}}</span>
-    </div>
-    <div class="">
-      {{room.authorCount}} members
-    </div>
-  {{/each}}
-</div>
-
-
-<div id="currentRoom">
-
-</div>
-
-<script>
-  var socket = io.connect('http://localhost:3000')
-
-  $(document).ready( () => {
-    $('#newPost').hide();
-  })
-
-  $('.room').click( (event) => {
-  	var roomName = $(event.target).attr("roomName");
-  	var $('#currentRoom').attr("roomName", roomName);
-  	socket.emit('openRoom', roomName);
-  });
-
-  $('#newRoom').on('click', 'input[type="submit"]', (event) => {
-    event.preventDefault();
-    let roomName = $('input[name=name]').val();
-    let userName = $.cookie("username");
-    socket.emit('newRoom', {roomName, userName});
-  })
-
-  $('#newMessage').on('click', 'input[type="submit"]', (event) => {
-    event.preventDefault();
-    let roomName = $('#currentRoom').attr("roomName");
-    let userName = $.cookie("username");
-    let message = $('input[name=post]').val();
-    socket.emit('newMessage', {roomName, userName, message});
-  })
-
-  socket.on('displayRoom', function(messages) {
-    $("#currentRoom").children().remove();
-    messages.forEach(message => {
-      let outerDiv = $('<div>');
-      outerDiv.append($('<div>').text(message.author));
-      outerDiv.append($('<div>').text(message.text));
-      $('#currentRoom').append(outerDiv);
-    });
-    $('#newRoom').hide();
-    $('#newPost').show();
-  });
-
-  socket.on('brandNewMessage', function(data) {
-      let outerDiv = $('<div>');
-      outerDiv.append($('<div>').text(data.author));
-      outerDiv.append($('<div>').text(data.message));
-      $('#currentRoom').append(outerDiv);
-    });
-
-
-
-
-  // socket.on('new count', function(count) {
-  //   $("#count").html(count)
-  // })
-
-  // $("#increment").click(function() {
-  //   socket.emit('increment')
-  // })
-
-  // $("#decrement").click(function() {
-  //   socket.emit('decrement')
-  // })
-</script>

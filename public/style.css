@@ -1,0 +1,95 @@
+html, body {
+  height: 100%;
+}
+
+#sidebar-wrapper {
+  position: fixed;
+  z-index: 1000;
+  top: 54px;
+  height: 100%;
+  overflow-y: auto;
+  background: #292b2c;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.members {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.sidebar-nav {
+  color: #ccc;
+  width: 180px;
+  list-style: none;
+  padding: 0 15px;
+}
+
+.sidebar-nav li {
+  text-indent: 10px;
+  line-height: 20px;
+  padding: 10px 0;
+}
+
+.sidebar-nav li {
+  display: block;
+  color: #999;
+}
+
+.sidebar-nav li:hover {
+  cursor: pointer;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
+
+#new-room-form {
+  display: none;
+}
+
+form input[type="text"] {
+  display: block;
+  width: 100%;
+}
+
+form input[type="submit"] {
+  display: block;
+}
+
+#page-content-wrapper {
+  margin: 54px 0 0 180px;
+  padding: 30px 15px;
+  height: 100%;
+  width: calc(100% - 180px);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#current-room .author {
+  font-weight: 800;
+}
+
+#current-room .message {
+}
+
+#current-room .msg-text {
+  color: #666;
+  font-size: 14px;
+}
+
+#new-message {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  width: inherit;
+}
+
+#new-message form {
+  padding-right: 15px;
+}
+
+.col {
+  height: 100%;
+}
