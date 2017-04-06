@@ -35,17 +35,17 @@ const index = io => {
     })
   });
 
-  router.post("/newRoom", (req, res) => {
-    const roomName = req.body.name;
-    const author = req.cookies.username;
-    chat.createMessage(
-      roomName,
-      author,
-      `This room was created by ${author}.`,
-      Date.now()
-    );
-    res.redirect("/");
-  });
+  // router.post("/newRoom", (req, res) => {
+  //   const roomName = req.body.name;
+  //   const author = req.cookies.username;
+  //   chat.createMessage(
+  //     roomName,
+  //     author,
+  //     `This room was created by ${author}.`,
+  //     Date.now()
+  //   );
+  //   res.redirect("/");
+  // });
 
   router.post("/login", (req, res) => {
     let username = req.body.username;
