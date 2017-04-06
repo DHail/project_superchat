@@ -21,18 +21,8 @@
         const userName = $.cookie("username");
         socket.emit('submit new room', roomName, userName);
         $('input[name=name]').val("");
-        var $newListItem = $('<li>').addClass('room').attr('room-name', roomName);
-	    var $navRoomName = $('<div>').addClass('room-name').attr('room-name', roomName);
-	    var $navMember = $('<div>').addClass('members').attr('room-name',roomName);
-	    $navRoomName.text(roomName);
-	    $navMember.text('1 member');
-	    $newListItem.append($navRoomName).append($navMember);
-        $('#room-list').prepend($newListItem);
       }
     });
-
-
-
 
     $('#new-message-form input').keydown(event => {
       if (event.keyCode == 13) {
@@ -57,6 +47,16 @@
         _appendMessageToRoom(author, message);
       }
     });
+
+    socket.on('add new room', roomName => {
+      var $newListItem = $('<li>').addClass('room').attr('room-name', roomName);
+      var $navRoomName = $('<div>').addClass('room-name').attr('room-name', roomName);
+      var $navMember = $('<div>').addClass('members').attr('room-name',roomName);
+      $navRoomName.text(roomName);
+      $navMember.text('1 member');
+      $newListItem.append($navRoomName).append($navMember);
+      $('#room-list').prepend($newListItem);
+    });
   });
 
   function _appendMessageToRoom(author, message) {
@@ -65,4 +65,3 @@
     outerDiv.append($('<div>').addClass('msg-text').text(message));
     $('#current-room').append(outerDiv);
   }
-

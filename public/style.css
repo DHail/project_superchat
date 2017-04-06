@@ -16,30 +16,41 @@ html, body {
   padding-left: 10px;
 }
 
+.form-inline {
+  position: fixed;
+  top: 8px;
+  right: 15px;
+}
+
 .members {
   font-size: 14px;
   color: #aaa;
 }
 
-.sidebar-nav {
+#room-list, #create-room {
   color: #ccc;
   width: 180px;
   list-style: none;
   padding: 0 15px;
 }
 
-.sidebar-nav li {
+#create-room {
+  padding: 15px 15px;
+  cursor: pointer;
+}
+
+#room-list li {
   text-indent: 10px;
   line-height: 20px;
   padding: 10px 0;
 }
 
-.sidebar-nav li {
+#room-list li {
   display: block;
   color: #999;
 }
 
-.sidebar-nav li:hover {
+#room-list li:hover {
   cursor: pointer;
   color: #fff;
   background: rgba(255,255,255,0.2);

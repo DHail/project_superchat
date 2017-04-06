@@ -1,15 +1,18 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse" role="navigation">
-  <button type="button" class="navbar-toggler navbar-toggler-right collapsed" data-toggle="collapse" data-target="navbar-collapse">
+  <button type="button" class="navbar-toggler navbar-toggler-right collapsed" data-toggle="collapse" data-target="#navbarSupportedContent">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="/">SUPERCHAT</a>
-  <div class="navbar-collapse collapse" aria-expanded="false">
+  <div id="navbarSupportedContent" class="navbar-collapse collapse" aria-expanded="false">
+    <form class="form-inline">
+      <span class="form-control mr-sm-2">{{username}}</span>
+    </form>
   </div>
 </nav>
 
 <nav id="sidebar-wrapper">
   <div id="create-room">+ Create Room</div>
-  <ul id="room-list" class="sidebar-nav">
+  <ul id="room-list">
     {{#each rooms as |room|}}
       <li class="room" room-name="{{room.roomName}}">
         <div class="room-name" room-name="{{room.roomName}}">{{room.roomName}}</div>

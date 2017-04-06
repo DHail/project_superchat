@@ -7,9 +7,9 @@ const index = io => {
     if (!req.cookies.username) {
       res.redirect("/login");
     } else {
+      const username = req.cookies.username;
       chat.allRoomsAndAuthors().then(rooms => {
-        console.log(rooms);
-        res.render("index", { rooms });
+        res.render("index", { username, rooms });
       });
     }
   });
@@ -64,6 +64,7 @@ const index = io => {
       chat.messagesForRoom(roomName).then(messages => {
         client.emit("open room", messages);
       });
+      io.emit('add new room', roomName);
     });
 
     client.on('new message', (roomName, author, text) => {
