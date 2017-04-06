@@ -25,7 +25,7 @@ const index = io => {
   router.post("/logout", (req, res) => {
     if (req.cookies.username) {
       res.clearCookie('username');
-    } 
+    }
     res.redirect("/");
   });
 
@@ -75,13 +75,15 @@ const index = io => {
     });
 
     client.on('new message', (roomName, author, text) => {
+      const newMember = chat.newMember(roomName, author);
+      console.log(newMember);
       chat.createMessage(
         roomName,
         author,
         text,
         Date.now()
       );
-      io.emit("created message", roomName, author, text);
+      io.emit("created message", roomName, author, text, newMember);
     });
 
   });

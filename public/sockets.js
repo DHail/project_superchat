@@ -4,10 +4,9 @@ $(document).ready( () => {
 
   $('#create-room').click( () => {
     $('#new-room').show();
-  })
+  });
 
   $('#room-list').on('click', '.room', event => {
-  	console.log($(event.target));
   	const roomName = $(event.target).attr("room-name");
   	$('#current-room-messages').attr("room-name", roomName);
   	socket.emit('click room', roomName);
@@ -41,9 +40,14 @@ $(document).ready( () => {
     $('#new-message').show();
   });
 
-  socket.on('created message', (room, author, message) => {
+  socket.on('created message', (room, author, message, newMember) => {
     if ($('#current-room-messages').attr('room-name') === room) {
       _appendMessageToRoom(author, message);
+    }
+    if (newMember) {
+      let $membersDiv = $('#room-list').find(`.members[room-name="${room}"]`);
+      const currMembers = $membersDiv.text().match(/\d/)[0];
+      $membersDiv.text(`${Number(currMembers) + 1} members`);
     }
   });
 
