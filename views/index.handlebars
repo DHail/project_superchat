@@ -17,7 +17,7 @@
     {{#each rooms as |room|}}
       <li class="room" room-name="{{room.roomName}}">
         <div class="room-name" room-name="{{room.roomName}}">{{room.roomName}}</div>
-        <div class="members" room-name="{{room.roomName}}">{{room.authorCount}} members</div>
+        <div class="members" room-name="{{room.roomName}}">{{room.authorCount}} {{plural room.authorCount}}</div>
       </li>
     {{/each}}
   </ul>

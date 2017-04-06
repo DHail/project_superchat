@@ -10,6 +10,15 @@ const cp = require('cookie-parser');
 app.engine(
   "handlebars",
   expressHbs({
+  	helpers: {
+  		plural: function(number) {
+  			if(number == 1) {
+  				return 'members'
+  			} else {
+  				return 'member'
+  			}
+  		}
+  	},
     defaultLayout: "main"
   })
 );

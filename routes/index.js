@@ -75,15 +75,17 @@ const index = io => {
     });
 
     client.on('new message', (roomName, author, text) => {
-      const newMember = chat.newMember(roomName, author);
-      console.log(newMember);
+      let newMember = chat.newMember(roomName, author);
       chat.createMessage(
         roomName,
         author,
         text,
         Date.now()
       );
-      io.emit("created message", roomName, author, text, newMember);
+      newMember.then( (member) => {
+        console.log(member);
+        io.emit("created message", roomName, author, text, member);
+      });
     });
 
   });
